@@ -1,0 +1,837 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"m",
+				"m"
+			],
+			[
+				"pre",
+				"preg_replace"
+			],
+			[
+				"t",
+				"txt"
+			],
+			[
+				"w",
+				"while	while …"
+			],
+			[
+				"print",
+				"print_r"
+			],
+			[
+				"decode_",
+				"decode_table"
+			],
+			[
+				"deco",
+				"decode"
+			],
+			[
+				"var",
+				"var_dump"
+			],
+			[
+				"ma",
+				"matches"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"preg",
+				"preg_replace"
+			],
+			[
+				"user",
+				"userblock"
+			],
+			[
+				"wile",
+				"while	while …"
+			],
+			[
+				"fu",
+				"function"
+			],
+			[
+				"n",
+				"null"
+			],
+			[
+				"sha",
+				"shabl"
+			],
+			[
+				"_",
+				"_tpl"
+			],
+			[
+				"is",
+				"is"
+			],
+			[
+				"a",
+				"a"
+			],
+			[
+				"ar",
+				"array"
+			],
+			[
+				"for",
+				"foreach	foreach …"
+			],
+			[
+				"ge",
+				"getdate"
+			],
+			[
+				"prot",
+				"property_exists"
+			],
+			[
+				"da",
+				"data"
+			],
+			[
+				"ne",
+				"new"
+			],
+			[
+				"el",
+				"else"
+			],
+			[
+				"stru",
+				"strtoupper"
+			],
+			[
+				"str_",
+				"str_replace"
+			],
+			[
+				"__",
+				"__CLASS__"
+			],
+			[
+				"pr",
+				"preg_match"
+			],
+			[
+				"un",
+				"unset"
+			],
+			[
+				"to",
+				"toArg"
+			],
+			[
+				"con",
+				"const"
+			],
+			[
+				"d",
+				"data"
+			],
+			[
+				"sta",
+				"static"
+			],
+			[
+				"c",
+				"class	class …"
+			],
+			[
+				"se",
+				"self"
+			],
+			[
+				"th",
+				"this"
+			],
+			[
+				"sy",
+				"system"
+			],
+			[
+				"pu",
+				"public"
+			],
+			[
+				"html",
+				"htmlspecialchars_decode"
+			],
+			[
+				"ht",
+				"htmlspecialchars"
+			],
+			[
+				"h",
+				"htmlspecialchars"
+			],
+			[
+				"re",
+				"rezultat"
+			],
+			[
+				"fo",
+				"foreach	foreach …"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "<?php\n/**\n * Created by PhpStorm.\n * User: root\n * Date: 03.12.2018\n * Time: 14:20\n */\n\nnamespace CORE;\n\n\nclass Tamplite\n{\n    private             $dat;\n\n    const _url_tpl    =   \"/tpl/\";\n\n    public function __construct()\n    {\n        $a = func_get_args();\n        $i = func_num_args();\n        if (method_exists($this,$f='__'.$i)) {\n            call_user_func_array(array($this,$f),$a);\n        }\n        $this->_url_tpl;\n    }\n    public function __call($name, $arguments)\n    {\n        $s = implode(' ',$arguments);\n        $this->dat=array_shift(unserialize($s));\n    }\n    static function __callStatic($name, $arguments)\n    {\n        unset($name);\n        self::__traceHTMLtoSYSTEM($arguments[0]);\n    }\n    public function __traceHTMLtoSYSTEM($data)\n    {\n        // Разбор всего ХТМЛ кода\n        // расчленение на составные системные блоки, \n        // выстроение иерархического дерева\n\n        $data->_tpl=$_SERVER['DOCUMENT_ROOT'] . self::_url_tpl . $data->_tpl . $data->_ext;\n        \n        if (is_file($data->_tpl)){\n\n            $rule=file_get_contents($data->_tpl);\n\n            preg_match_all('/<([a-z]*)\\s(system)=[\"|\\'](\\w*)[\"|\\']>/is',$rule,$rezultat, PREG_PATTERN_ORDER, 0);\n\n            $data->_tpl = array('shabl'=>$rule,'listFUNCTION'=>$rezultat[3]);\nvar_dump($data->_tpl);\n            return $data;\n        }else{\n            echo \"Нетуddd шаблона {$data->_tpl}\";\n        }\n\n//        echo '<pre>';\n       \n//        echo '</pre>';\n\n    }\n\n    public function _extractTo($a,$b,$c)\n    {\n        \n        \n        if(is_array($a))\n        {\n            echo \"<pre>\";\n            // var_dump($a);\n            \n            // print_r($rezultat[1]);\n            // if (!is_array($rezultat)) {\n            //     # code...\n            //     $rezultat = array('Пусто' => \"Пустой\");\n            // }\n\n            // foreach ($a[0] as $k => $v)\n            // {\n\n            //     echo \"В шаблоне \".htmlspecialchars(preg_replace('/\\s'.$b.'=[\"|\\'](\\w*)[\"|\\']/isx','',$k)).\n            //     \" результат \".htmlspecialchars($v);\n\n            // }\n//             while( preg_match( \"#\\<([a-z ])system=(.+?)\\>(.+?)\\</\\\\1\\>#is\", $rule ) )\n//             {\n//                 echo preg_replace( \"#\\<([a-z ])system=(.+?)\\>(.+?)\\</\\\\1\\>#is\", htmlspecialchars(\"<\\\\1>\\\\2</\\\\1>\"), $rule );\n// //                $rule = //????\n//             }\n//            preg_match_all(\"/(<([\\w]+)system=(.*?)[^>]*>)(.*)(<\\/\\\\2>)/\", $rule, $matches);\n//\n//            for ($i=0; $i< count($matches[0]); $i++) {\n//                echo \"matched: \" . htmlspecialchars($matches[0][$i]) . \"\\n\";\n//                echo \"part 1: \" . htmlspecialchars($matches[1][$i]) . \"\\n\";\n//                echo \"part 2: \" . htmlspecialchars($matches[3][$i]) . \"\\n\";\n//                echo \"part 3: \" . htmlspecialchars($matches[4][$i]) . \"\\n\\n\";\n//            }\n\n            echo \"</pre>\";\n        }\n\n    }\n    // public function getdate($data){\n    //         return $data->_tpl;\n    //     }\n\n}",
+			"file": "class/CORE/Tamplite.php",
+			"file_size": 3205,
+			"file_write_time": 131912862205426460,
+			"settings":
+			{
+				"buffer_size": 2974,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "class/SECTION/PAGE.php",
+			"settings":
+			{
+				"buffer_size": 3149,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "<?php\n$mem_start = memory_get_usage();\n// var_dump(new Exception);\n\n/**\n * User: root\n * Date: 28.11.2018\n * Time: 3:15\n * logik\n * #1 URL => Route\n * #2 DB => Json\n * #3 MODULE => PAGE...\n * #4 Tamplit => TPL\n * ECHO\n */\n#$_SERVER['REQUEST_URI'];\ndefine('debug',0);\n\nrequire_once 'class/CORE/Autoloader.php';\n\nuse CORE\\\n{\n    Autoloader as Autoloader, Route as Route, Tamplite as TPL, NotLoad as NotLoad\n};\n\n$route = new Route($_SERVER['REQUEST_URI']);\n\n$core = (class_exists(\"SECTION\\\\\".strtoupper($route->__toMod())))?\"SECTION\\\\\".strtoupper($route->__toMod()):\"CORE\\NotLoad\";\n\n$obj    =   new $core($route);\n// var_dump($obj);\n$_n =   file_get_contents($_SERVER['DOCUMENT_ROOT'] .\"/Log/Log.html\");#'/Log/Log.html'\n\n$mem_start = (memory_get_usage() - $mem_start)/1024;\n\necho  $mem_start.\"Kb\";\n\n\n\n\n\nfunction pr($var) {\n    static $int=0;\n    echo '<pre><b style=\"background: red;padding: 1px 5px;\">'.$int.'</b> ';\n    print_r($var);\n    echo '</pre>';\n    $int++;\n}\n\nfunction vrd($var) {\n    static $int=0;\n    echo '<pre><b style=\"background: blue;padding: 1px 5px;\">'.$int.'</b> ';\n    var_dump($var);\n    echo '</pre>';\n    $int++;\n}\n\n\n\n\n\n",
+			"file": "index.php",
+			"file_size": 1192,
+			"file_write_time": 131917216891011019,
+			"settings":
+			{
+				"buffer_size": 1143,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "[b]ДК «Силикат»[/b]\n[table	][tbody][tr][td]Понедельник[/td][td]Вторник[/td][td]Среда[/td][td]Четверг[/td][td]Пятница[/td][td]Суббота[/td][td]Воскресенье[/td][/tr][tr][td]16.45-21.00&nbsp;(Каб.5, Сцена)[/td][td]19.00-21.00(Каб.5)[/td][td]16.00-21.00(Каб.5)[/td][td]19.00-21.00(Каб.5)[/td][td]16.00-21.00&nbsp;(Каб.5, Каб.9)[/td][td]11.00-17.00&nbsp;(Каб.5, Каб.9)[/td][td][/td][/tr][/tbody][/table]\n\n[b]ДК «Белая Дача»[/b]\n[table][tbody][tr][td]Понедельник[/td][td]Вторник[/td][td]Среда[/td][td]Четверг[/td][td]Пятница[/td][td]Суббота[/td][td]Воскресенье[/td][/tr][tr][td]17.00-19.00&nbsp;(Каб.4)[/td][td][/td][td][/td][td][/td][td]17.00-19.00&nbsp;(Каб.4)[/td][td][/td][td][/td][/tr][/tbody][/table]",
+			"settings":
+			{
+				"buffer_size": 699,
+				"line_ending": "Windows",
+				"name": "<b>ДК «Силикат»</b>"
+			}
+		},
+		{
+			"file": "/F/{soft}/phpstorm-2018/bin/idea.properties",
+			"settings":
+			{
+				"buffer_size": 11018,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "empty",
+			"file": "/C/Users/root/AppData/Local/Temp/Rar$DIa7548.7826/empty.file.marker",
+			"file_size": 5,
+			"file_write_time": 131929336120000000,
+			"settings":
+			{
+				"buffer_size": 5,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/root/Downloads/YNDb.0.0.1/db.php",
+			"settings":
+			{
+				"buffer_size": 30902,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/root/AppData/Local/Temp/FileZillaPortableTemp/fz3temp-2/userblock.php",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/root/AppData/Local/Temp/FileZillaPortableTemp/fz3temp-2/parse.class.php",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/F/{soft}/open server (базовый, расширенный, максимальный) 5.2.9/OSPanel/userdata/temp/FileZillaPortableTemp/fz3temp-2/dbconfig.php",
+			"settings":
+			{
+				"buffer_size": 373,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/F/{soft}/ACID Pro 7/MultiKeygen/diginsan.nfo",
+		"/C/Program Files/Prizm/conf/logging-default.properties",
+		"/C/Program Files/Prizm/conf/prizm.default.properties",
+		"/C/Users/root/Downloads/логотип.zip",
+		"/H/m0nkrus.nfo",
+		"/H/Crack/readme.txt",
+		"/F/{soft}/phpstorm-2018/bin/phpstorm64.exe.vmoptions",
+		"/F/{soft}/phpstorm-2018/system/index/registered",
+		"/F/{soft}/phpstorm-2018/system/vcs-users/84065ad0.2.keystream",
+		"/F/{soft}/phpstorm-2018/system/.home",
+		"/F/{soft}/phpstorm-2018/system/port",
+		"/F/{soft}/phpstorm-2018/system/port.lock",
+		"/F/{soft}/phpstorm-2018/system/token",
+		"/F/{soft}/phpstorm-2018/bin/phpstorm.exe.vmoptions",
+		"/F/{soft}/phpstorm-2018/config/port",
+		"/F/{soft}/phpstorm-2018/config/port.lock",
+		"/C/Users/root/Downloads/amiro-install-6.19.php",
+		"/F/sites-udalenka/maukkkotelniki-ru/bbcode.php",
+		"/C/Users/root/AppData/Local/Temp/FileZillaPortableTemp/fz3temp-2/bbcode.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa15640.23299/bbcode.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa3084.38078/README.md",
+		"/F/{soft}/open server (базовый, расширенный, максимальный) 5.2.9/OSPanel/userdata/temp/FileZillaPortableTemp/fz3temp-2/profile.php",
+		"/F/{soft}/open server (базовый, расширенный, максимальный) 5.2.9/OSPanel/userdata/temp/FileZillaPortableTemp/fz3temp-2/parse.class.php",
+		"/F/{soft}/open server (базовый, расширенный, максимальный) 5.2.9/OSPanel/userdata/temp/FileZillaPortableTemp/fz3temp-2/userfields.php",
+		"/F/{soft}/open server (базовый, расширенный, максимальный) 5.2.9/OSPanel/userdata/temp/FileZillaPortableTemp/fz3temp-2/dbconfig.php",
+		"/C/Users/root/Downloads/test.php",
+		"/C/Users/root/Downloads/PhpMooAdmin.0.0.1.php",
+		"/F/{soft}/Open Server (Базовый, Расширенный, Максимальный) 5.2.9/OSPanel/domains/artmarka.ru/class/CORE/Route.php",
+		"/F/{soft}/Open Server (Базовый, Расширенный, Максимальный) 5.2.9/OSPanel/domains/artmarka.ru/class/CORE/Autoloader.php",
+		"/F/{soft}/Open Server (Базовый, Расширенный, Максимальный) 5.2.9/OSPanel/domains/artmarka.ru/class/CORE/NotLoad.php",
+		"/C/Users/root/AppData/Local/Temp/FileZillaPortableTemp/fz3temp-2/vote.php",
+		"/C/Users/root/AppData/Local/Temp/FileZillaPortableTemp/fz3temp-2/userblock_pro.tpl",
+		"/C/Users/root/AppData/Local/Temp/FileZillaPortableTemp/fz3temp-2/user_news_mini.tpl",
+		"/C/Users/root/AppData/Local/Temp/FileZillaPortableTemp/fz3temp-2/userblock.php",
+		"/C/Users/root/AppData/Local/Temp/FileZillaPortableTemp/fz3temp-2/templates.class.php",
+		"/F/{soft}/Open Server (Базовый, Расширенный, Максимальный) 5.2.9/OSPanel/domains/artmarka.ru/TPL/DEFUALT.page.html",
+		"/C/Users/root/AppData/Local/Temp/FileZillaPortableTemp/fz3temp-2/main.tpl",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa1960.43914/db.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa1960.41922/libindex.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa1960.8345/fopen-cacher.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa9580.16475/fdat.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa9580.34720/functions.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa9580.4713/files.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa9580.27639/settings.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa9580.13606/index.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa13124.16024/Conversion.php",
+		"/F/{soft}/Open Server (Базовый, Расширенный, Максимальный) 5.2.9/OSPanel/domains/muwid.loc/test.php",
+		"/F/{soft}/Open Server (Базовый, Расширенный, Максимальный) 5.2.9/OSPanel/domains/artmarka.ru/TPL/index.html",
+		"/F/{soft}/Open Server (Базовый, Расширенный, Максимальный) 5.2.9/OSPanel/domains/artmarka.ru/class/CORE/Errore.php",
+		"/F/{soft}/Open Server (Базовый, Расширенный, Максимальный) 5.2.9/OSPanel/domains/artmarka.ru/.idea/modules.xml",
+		"/F/{soft}/Open Server (Базовый, Расширенный, Максимальный) 5.2.9/OSPanel/domains/artmarka.ru/.idea/artmarka.ru.iml",
+		"/F/{soft}/Open Server (Базовый, Расширенный, Максимальный) 5.2.9/OSPanel/domains/artmarka.ru/artmarka.sublime-project",
+		"/F/{soft}/Open Server (Базовый, Расширенный, Максимальный) 5.2.9/OSPanel/domains/mauk.loc/profile.php",
+		"/F/{soft}/open server (базовый, расширенный, максимальный) 5.2.9/OSPanel/userdata/temp/FileZillaPortableTemp/fz3temp-2/config.php",
+		"/F/{soft}/Open Server (Базовый, Расширенный, Максимальный) 5.2.9/OSPanel/domains/mauk.loc/userblock.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.29619/templates.class.php",
+		"/F/{soft}/Open Server (Базовый, Расширенный, Максимальный) 5.2.9/OSPanel/domains/mauk.loc/bbcodes.js",
+		"/F/{soft}/Open Server (Базовый, Расширенный, Максимальный) 5.2.9/OSPanel/domains/mauk.loc/bbcode.php",
+		"/F/{soft}/Open Server (Базовый, Расширенный, Максимальный) 5.2.9/OSPanel/domains/mauk.loc/userfields.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.3804/stopspam.class.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.44077/rss.class.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.967/social.class.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.41202/recaptcha.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.8077/plugins.class.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.23370/parse.class.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.12759/mysql.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.8493/mobiledetect.class.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.9707/memcache.class.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.2577/mail.class.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.34606/google.class.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.41020/comments.class.php",
+		"/F/{soft}/Open Server (Базовый, Расширенный, Максимальный) 5.2.9/OSPanel/domains/mauk.loc/vh183380_mauk_2017-09-18_14-39_303f5.sql",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.35606/antivirus.class.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.32699/.htaccess",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.9523/download.class.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.6814/cron.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.5766/admin.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.30120/rss.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.31199/print.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.32019/preview.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.21049/opensearch.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.3856/init.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.42794/go.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.40873/download.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DRa7956.38652/upload/engine/download.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DRa7956.23887/upload/engine/download.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.7751/admin.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.45206/index.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.14943/engine.php",
+		"/C/Program Files (x86)/ByteRun Protector for PHP/Example1.prot/page3.php",
+		"/C/Users/root/AppData/Local/Temp/Rar$DIa7956.2665/install.php",
+		"/F/{soft}/Open Server (Базовый, Расширенный, Максимальный) 5.2.9/OSPanel/domains/muwid.loc/wa-config/routing.php",
+		"/F/{soft}/Open Server (Базовый, Расширенный, Максимальный) 5.2.9/OSPanel/domains/muwid.loc/wa-config/apps/shop/config.php",
+		"/F/{soft}/Open Server (Базовый, Расширенный, Максимальный) 5.2.9/OSPanel/domains/muwid.loc/.html.blok.navigation",
+		"/F/{soft}/Open Server (Базовый, Расширенный, Максимальный) 5.2.9/OSPanel/domains/muwid.loc/.files.md5",
+		"/F/{soft}/phpstorm-2018/bin/idea.properties",
+		"/F/{soft}/phpstorm-2018/product-info.json",
+		"/F/{soft}/open server (базовый, расширенный, максимальный) 5.2.9/ospanel/domains/muwid.loc/wa-system/image/waImageGd.class.php",
+		"/F/{soft}/open server (базовый, расширенный, максимальный) 5.2.9/ospanel/domains/muwid.loc/wa-system/image/waImage.class.php",
+		"/C/Users/User/Desktop/ыыыы/Data/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/User/Desktop/ss",
+		"/C/Users/User/Desktop/ыыыы/Data/Packages/Emmet/Emmet.sublime-settings"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"<((/|).+?)>",
+			"(?:(\\s\\w*[=\"].+?[\"])|<(?:/|)p>|<br>)",
+			"(?:(\\s\\w*[=\"].+?[\"])|<(?:/|)p>)",
+			"(?:(\\s\\w*[=\"].+?[\"])|\\[br\\]|\\[p|\\[/p\\])",
+			"<((/|).+?)>",
+			"<((?:/|))>",
+			"(?:<(?:/|)p>|<br(?:.*?|)>)",
+			"(?:(\\s\\w*[=\"].+?[\"])|\\[br\\]|\\[p|\\[/p\\])",
+			"decode_thumb",
+			"decode_dle_img",
+			"decode_thumb",
+			"build_thumb",
+			"(?:(\\s\\w*[=\"].+?[\"])|\\[br\\]|\\[p|\\[/p\\])",
+			"(\\[(?:|/)tbody\\])",
+			">",
+			"<",
+			"decode_table",
+			"\\s(.*?)=(.*)\"",
+			"decode_table",
+			"\\[table\\](.+?)\\[/table\\]",
+			"decode_table",
+			"(?:<|\\[)tr(?:>|\\])*\\s(.?)*\\s(?:<|\\[)/tr(?:>|\\])",
+			"(?:<|\\[)tr(.+?)(?:>|])(.+?)(?:<|\\[)/tr(?:>|])",
+			"(?:>|\\])td(.+?)(?:>|\\])(.+?)(?:>|\\])/td(?:>|\\]",
+			"decode_table",
+			"[br]",
+			"[><",
+			"[><]",
+			"\\[\\]",
+			"(?:/p|p[\\s\\w=\"]+)",
+			"\\[br\\]",
+			"<((?:/|)[a-z].+?)>",
+			"<((?:/|)[a-z\\s\\w\\W]+)>",
+			"<(?:/|)(.*?)>",
+			"decode_table",
+			"decode_url",
+			"decode_thumb",
+			"decode_oldthumb",
+			"decode_img",
+			"_strpos",
+			"table",
+			"decode_ta",
+			"table",
+			"xfields",
+			"ad",
+			"add",
+			"htmlspecialchars",
+			"check"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"[\\1]",
+			"",
+			"[\\1]",
+			"",
+			"]",
+			"[",
+			"",
+			"[",
+			"",
+			"[\\1]",
+			"[\\\\1]",
+			"[(?:/|)(.*?)]"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 6,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "class/CORE/Tamplite.php",
+					"settings":
+					{
+						"buffer_size": 2974,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1460,
+								1460
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true,
+							"word_wrap": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 405.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "class/SECTION/PAGE.php",
+					"settings":
+					{
+						"buffer_size": 3149,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3149,
+								3149
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1141.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "index.php",
+					"settings":
+					{
+						"buffer_size": 1143,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1143,
+								1143
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 915.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"settings":
+					{
+						"buffer_size": 699,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								699,
+								0
+							]
+						],
+						"settings":
+						{
+							"auto_name": "<b>ДК «Силикат»</b>",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/F/{soft}/phpstorm-2018/bin/idea.properties",
+					"settings":
+					{
+						"buffer_size": 11018,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								642,
+								636
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Java/JavaProperties.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/C/Users/root/AppData/Local/Temp/Rar$DIa7548.7826/empty.file.marker",
+					"settings":
+					{
+						"buffer_size": 5,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/C/Users/root/Downloads/YNDb.0.0.1/db.php",
+					"settings":
+					{
+						"buffer_size": 30902,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/C/Users/root/AppData/Local/Temp/FileZillaPortableTemp/fz3temp-2/userblock.php",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false,
+							"word_wrap": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 180.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/C/Users/root/AppData/Local/Temp/FileZillaPortableTemp/fz3temp-2/parse.class.php",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false,
+							"word_wrap": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 27618.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "/F/{soft}/open server (базовый, расширенный, максимальный) 5.2.9/OSPanel/userdata/temp/FileZillaPortableTemp/fz3temp-2/dbconfig.php",
+					"settings":
+					{
+						"buffer_size": 373,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								147,
+								162
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 63.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 112.0,
+	"status_bar_visible": true
+}
